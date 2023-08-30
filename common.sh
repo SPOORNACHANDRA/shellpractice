@@ -1,4 +1,4 @@
-func_apppreq(){
+func_apppreq() {
    echo -e "\e[32m >>>>>>>> create app ${component} <<<<<<<<<\e[0m]"
     ${component}add roboshop &>>${log}
     echo -e "\e[32m >>>>>>>> create app directory <<<<<<<<<\e[0m]"
@@ -10,13 +10,13 @@ func_apppreq(){
     echo -e "\e[32m >>>>>>>> extraction app content <<<<<<<<<\e[0m]"
     cd /app &>>${log}
 }
-func_systemd(){
+func_systemd() {
   echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
-  systemctl daemon-reload
-  systemctl enable ${component}
-  systemctl start ${component}
+  systemctl daemon-reload &>>${log}
+  systemctl enable ${component} &>>${log}
+  systemctl start ${component} &>>${log}
 }
-func_nodejs(){
+func_nodejs() {
   log=/tmp/roboshop.log
 
   echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
@@ -39,16 +39,16 @@ func_apppreq
 }
 func_java() {
   echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
-cp ${component}.service /etc/systemd/system/${component}.service
+cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
 echo -e "\e[32m >>>>>>>> install maven <<<<<<<<<\e[0m]"
-yum install maven -y
+yum install maven -y &>>${log}
 func_apppreq
 echo -e "\e[32m >>>>>>>> build ${component} <<<<<<<<<\e[0m]"
-mvn clean package
-mv target/${component}-1.0.jar ${component}.jar
+mvn clean package &>>${log}
+mv target/${component}-1.0.jar ${component}.jar &>>${log}
 echo -e "\e[32m >>>>>>>> install mysql <<<<<<<<<\e[0m]"
-yum install mysql -y
+yum install mysql -y &>>${log}
 echo -e "\e[32m >>>>>>>> load schema <<<<<<<<<\e[0m]"
-mysql -h mysqlp.poornadevops.online -uroot -pRoboShop@1 < /app/schema/${component}.sql
+mysql -h mysqlp.poornadevops.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>>${log}
 func_systemd
 }
