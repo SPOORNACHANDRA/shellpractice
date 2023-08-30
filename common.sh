@@ -1,18 +1,18 @@
 func_nodejs() {
-  cp user.service /etc/systemd/system/user.service
+  cp ${component}.service /etc/systemd/system/${component}.service
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 yum install nodejs -y
 useradd roboshop
 mkdir /app
-curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user.zip
+curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
 cd /app
-unzip /tmp/user.zip
+unzip /tmp/${component}.zip
 cd /app
 npm install
 
-mongo --host mongodbp.poornadevops.online </app/schema/user.js
+mongo --host mongodbp.poornadevops.online </app/schema/${component}.js
 systemctl daemon-reload
-systemctl enable user
-systemctl restart user
+systemctl enable ${component}
+systemctl restart ${component}
 }
