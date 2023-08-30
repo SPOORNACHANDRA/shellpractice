@@ -1,3 +1,4 @@
+log=/tmp/roboshop.log
 func_apppreq() {
    echo -e "\e[32m >>>>>>>> create app ${component} <<<<<<<<<\e[0m]"
     add roboshop &>>${log}
@@ -17,8 +18,6 @@ func_systemd() {
   systemctl start ${component} &>>${log}
 }
 func_nodejs() {
-  log=/tmp/roboshop.log
-
   echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
   cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
   echo -e "\e[32m >>>>>>>> create mongodb repo <<<<<<<<<\e[0m]"
