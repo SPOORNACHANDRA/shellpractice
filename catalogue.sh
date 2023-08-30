@@ -26,5 +26,3 @@ systemctl daemon-reload
 systemctl enable catalogue
 systemctl start catalogue
 
-
-echo -e "\e[32m >>>>>>>> create catalogue service <<<<<<<<<\e[0m]"
