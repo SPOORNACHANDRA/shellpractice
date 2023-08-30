@@ -1,5 +1,8 @@
 func_schema_setup() {
-
+yum install mongodb-org-shell -y
+mongo --host MONGODB-SERVER-IPADDRESS </app/schema/${component}.js
+yum install mysql -y
+mysql -h mysqlp.poornadevops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
 }
 
 func_nodejs() {
