@@ -1,4 +1,5 @@
 log=/tmp/roboshop.log
+
 func_apppreq() {
    echo -e "\e[32m >>>>>>>> create app ${component} <<<<<<<<<\e[0m]"
     add roboshop &>>${log}
@@ -11,12 +12,14 @@ func_apppreq() {
     echo -e "\e[32m >>>>>>>> extraction app content <<<<<<<<<\e[0m]"
     cd /app &>>${log}
 }
+
 func_systemd() {
   echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
   systemctl daemon-reload &>>${log}
   systemctl enable ${component} &>>${log}
   systemctl start ${component} &>>${log}
 }
+
 func_nodejs() {
   echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
   cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
@@ -36,6 +39,7 @@ func_apppreq
   mongo --host mongodbp.poornadevops.online </app/schema/${component}.js &>>${log}
  func_systemd
 }
+
 func_java() {
   echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
   cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
