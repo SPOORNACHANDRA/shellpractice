@@ -10,7 +10,7 @@ unzip /tmp/user.zip
 cd /app
 npm install
 
-mongo --host MONGODB-SERVER-IPADDRESS </app/schema/user.js
+mongo --host mongodbp.poornadevops.online </app/schema/user.js
 systemctl daemon-reload
 systemctl enable user
 systemctl restart user
