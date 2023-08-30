@@ -1,25 +1,54 @@
-func_schema_setup() {
-yum install mongodb-org-shell -y
-mongo --host MONGODB-SERVER-IPADDRESS </app/schema/${component}.js
-yum install mysql -y
-mysql -h mysqlp.poornadevops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
+func_apppreq(){
+   echo -e "\e[32m >>>>>>>> create app ${component} <<<<<<<<<\e[0m]"
+    ${component}add roboshop &>>${log}
+    echo -e "\e[32m >>>>>>>> create app directory <<<<<<<<<\e[0m]"
+    rm -rf /app &>>${log}
+    echo -e "\e[32m >>>>>>>> create app directory <<<<<<<<<\e[0m]"
+    mkdir /app &>>${log}
+    echo -e "\e[32m >>>>>>>> download app content <<<<<<<<<\e[0m]"
+    curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log}
+    echo -e "\e[32m >>>>>>>> extraction app content <<<<<<<<<\e[0m]"
+    cd /app &>>${log}
 }
+func_systemd(){
+  echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
+  systemctl daemon-reload
+  systemctl enable ${component}
+  systemctl start ${component}
+}
+func_nodejs(){
+  log=/tmp/roboshop.log
 
-func_nodejs() {
-  cp ${component}.service /etc/systemd/system/${component}.service
-cp mongo.repo /etc/yum.repos.d/mongo.repo
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash
-yum install nodejs -y
-useradd roboshop
-mkdir /app
-curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
-cd /app
-unzip /tmp/${component}.zip
-cd /app
-npm install
-
-mongo --host mongodbp.poornadevops.online </app/schema/${component}.js
-systemctl daemon-reload
-systemctl enable ${component}
-systemctl restart ${component}
+  echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
+  cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
+  echo -e "\e[32m >>>>>>>> create mongodb repo <<<<<<<<<\e[0m]"
+  cp mongo.repo /etc/yum.repos.d/mongo.repo &>>${log}
+  echo -e "\e[32m >>>>>>>> install nodejs repos <<<<<<<<<\e[0m]"
+  curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log}
+  echo -e "\e[32m >>>>>>>> install nodejs <<<<<<<<<\e[0m]"
+  yum install nodejs -y &>>${log}
+func_apppreq
+  unzip /tmp/${component}.zip &>>${log}
+  echo -e "\e[32m >>>>>>>> download dependences <<<<<<<<<\e[0m]"
+  npm install &>>${log}
+  echo -e "\e[32m >>>>>>>> install mongodb client <<<<<<<<<\e[0m]"
+  yum install mongodb-org-shell -y &>>${log}
+  echo -e "\e[32m >>>>>>>> load schema <<<<<<<<<\e[0m]"
+  mongo --host mongodbp.poornadevops.online </app/schema/${component}.js &>>${log}
+ func_systemd
+}
+func_java() {
+  echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
+cp ${component}.service /etc/systemd/system/${component}.service
+echo -e "\e[32m >>>>>>>> install maven <<<<<<<<<\e[0m]"
+yum install maven -y
+func_apppreq
+echo -e "\e[32m >>>>>>>> build ${component} <<<<<<<<<\e[0m]"
+mvn clean package
+mv target/${component}-1.0.jar ${component}.jar
+echo -e "\e[32m >>>>>>>> install mysql <<<<<<<<<\e[0m]"
+yum install mysql -y
+echo -e "\e[32m >>>>>>>> load schema <<<<<<<<<\e[0m]"
+mysql -h mysqlp.poornadevops.online -uroot -pRoboShop@1 < /app/schema/${component}.sql
+func_systemd
 }
