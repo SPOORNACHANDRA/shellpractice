@@ -48,6 +48,6 @@ mv target/${component}-1.0.jar ${component}.jar &>>${log}
 echo -e "\e[32m >>>>>>>> install mysql <<<<<<<<<\e[0m]"
 yum install mysql -y &>>${log}
 echo -e "\e[32m >>>>>>>> load schema <<<<<<<<<\e[0m]"
-mysql -h mysqlp.poornadevops.online -uroot -pRoboShop@1 </app/schema/${component}.sql &>>${log}
+mysql -h mysqlp.poornadevops.online -uroot -pRoboShop@123 </app/schema/${component}.sql &>>${log}
 func_systemd
 }
