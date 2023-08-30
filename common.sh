@@ -39,9 +39,9 @@ func_apppreq
 }
 func_java() {
   echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
-cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
-echo -e "\e[32m >>>>>>>> install maven <<<<<<<<<\e[0m]"
-yum install maven -y &>>${log}
+  cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
+  echo -e "\e[32m >>>>>>>> install maven <<<<<<<<<\e[0m]"
+  yum install maven -y &>>${log}
 func_apppreq
 echo -e "\e[32m >>>>>>>> build ${component} <<<<<<<<<\e[0m]"
 mvn clean package &>>${log}
