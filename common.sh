@@ -1,6 +1,6 @@
 func_apppreq() {
    echo -e "\e[32m >>>>>>>> create app ${component} <<<<<<<<<\e[0m]"
-    ${component}add roboshop &>>${log}
+    add roboshop &>>${log}
     echo -e "\e[32m >>>>>>>> create app directory <<<<<<<<<\e[0m]"
     rm -rf /app &>>${log}
     echo -e "\e[32m >>>>>>>> create app directory <<<<<<<<<\e[0m]"
