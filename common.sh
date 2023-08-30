@@ -1,3 +1,7 @@
+func_schema_setup() {
+
+}
+
 func_nodejs() {
   cp ${component}.service /etc/systemd/system/${component}.service
 cp mongo.repo /etc/yum.repos.d/mongo.repo
