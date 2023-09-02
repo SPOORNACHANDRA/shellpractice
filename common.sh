@@ -2,13 +2,13 @@ log=/tmp/roboshop.log
 
 func_apppreq() {
    echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
-      cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
-      func_exit_status
-      echo -e "\e[32m >>>>>>>> remove app user <<<<<<<<<\e[0m]"
-      rm-rf roboshop &>>${log}
+   cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
       func_exit_status
    echo -e "\e[32m >>>>>>>> create app user <<<<<<<<<\e[0m]"
+   id roboshop
+   if [ $? -ne 0 ]; then
     add roboshop &>>${log}
+    fi
    func_exit_status
     echo -e "\e[32m >>>>>>>> create app directory <<<<<<<<<\e[0m]"
     rm -rf /app &>>${log}
@@ -27,7 +27,7 @@ func_exit_status() {
   if [ $? -eq 0 ]; then
   echo -e "\e[32m success \e[0m"
 else
-  echo -e "\e[32m failure \e[0m"
+  echo -e "\e[31m failure \e[0m"
   fi
 }
 
