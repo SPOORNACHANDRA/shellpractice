@@ -21,8 +21,8 @@ func_apppreq() {
     func_exit_status
 }
 func_exit_status() {
-  if [ echo$? -eq 0 ]; then
-    echo -e "\e[32m success \e[0m"
+  if [ $? -eq 0 ]; then
+  echo -e "\e[32m success \e[0m"
 else
   echo -e "\e[32m failure \e[0m"
   fi
