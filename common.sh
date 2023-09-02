@@ -5,9 +5,9 @@ func_apppreq() {
    cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
       func_exit_status
    echo -e "\e[32m >>>>>>>> create app user <<<<<<<<<\e[0m]"
-   id roboshop
+   id roboshop &>>${log}
    if [ $? -ne 0 ]; then
-    add roboshop &>>${log}
+    useradd roboshop &>>${log}
     fi
    func_exit_status
     echo -e "\e[32m >>>>>>>> create app directory <<<<<<<<<\e[0m]"
