@@ -1,6 +1,9 @@
 log=/tmp/roboshop.log
 
 func_apppreq() {
+   echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
+      cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
+      echo $?
    echo -e "\e[32m >>>>>>>> create app user <<<<<<<<<\e[0m]"
     add roboshop &>>${log}
     echo $?
@@ -19,9 +22,6 @@ func_apppreq() {
 }
 
 func_systemd() {
-  echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
-    cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
-    echo $?
   echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
   systemctl daemon-reload &>>${log}
   systemctl enable ${component} &>>${log}
