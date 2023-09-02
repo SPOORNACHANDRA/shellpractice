@@ -4,6 +4,9 @@ func_apppreq() {
    echo -e "\e[32m >>>>>>>> create ${component} service <<<<<<<<<\e[0m]"
       cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
       func_exit_status
+      echo -e "\e[32m >>>>>>>> remove app user <<<<<<<<<\e[0m]"
+      rm-rf roboshop &>>${log}
+      func_exit_status
    echo -e "\e[32m >>>>>>>> create app user <<<<<<<<<\e[0m]"
     add roboshop &>>${log}
    func_exit_status
