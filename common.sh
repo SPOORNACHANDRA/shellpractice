@@ -92,6 +92,7 @@ func_systemd
 }
 func_python() {
 func_apppreq
+sed -i "s/rabbitmq_app_password/${rabbitmq_app_password}/" /etc/systemd/system/${component}.service
 echo -e "\e[32m >>>>>>>> install python <<<<<<<<<\e[0m]"
 yum install python36 gcc python3-devel -y
 func_exit_status
