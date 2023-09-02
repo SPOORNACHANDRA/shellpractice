@@ -58,6 +58,7 @@ func_apppreq
   echo -e "\e[32m >>>>>>>> install mongodb client <<<<<<<<<\e[0m]"
  func_schema_setup
  func_systemd
+func_exit_status
 }
 func_schema_setup() {
   if [ "${schema_type}" == "mongodb" ]; then
