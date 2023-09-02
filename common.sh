@@ -1,7 +1,7 @@
 log=/tmp/roboshop.log
 
 func_apppreq() {
-   echo -e "\e[32m >>>>>>>> create app ${component} <<<<<<<<<\e[0m]"
+   echo -e "\e[32m >>>>>>>> create app user <<<<<<<<<\e[0m]"
     add roboshop &>>${log}
     echo $?
     echo -e "\e[32m >>>>>>>> create app directory <<<<<<<<<\e[0m]"
