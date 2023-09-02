@@ -69,3 +69,4 @@ echo -e "\e[32m >>>>>>>> download dependencies <<<<<<<<<\e[0m]"
 pip3.6 install -r requirements.txt
 func_systemd
 }
+
