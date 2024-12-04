@@ -65,7 +65,7 @@ func_schema_setup() {
    yum install mongodb-org-shell -y &>>${log}
    func_exit_status
     echo -e "\e[32m >>>>>>>> load schema <<<<<<<<<\e[0m]"
-    mongo --host mongodbp.poornadevops.online </app/schema/${component}.js &>>${log}
+    mongo --host mongodbp.devopsproject.online </app/schema/${component}.js &>>${log}
     func_exit_status
 fi
 if [ "${schema_setup}" == "mysql" ]; then
@@ -73,7 +73,7 @@ echo -e "\e[32m >>>>>>>> install mysql <<<<<<<<<\e[0m]"
 yum install mysql -y &>>${log}
 func_exit_status
 echo -e "\e[32m >>>>>>>> load schema <<<<<<<<<\e[0m]"
-mongo --host mysqlp.poornadevops.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>>${log}
+mongo --host mysqlp.devopsproject.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>>${log}
 func_exit_status
 fi
 }

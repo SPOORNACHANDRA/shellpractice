@@ -4,11 +4,11 @@ Description=Payment Service
 [Service]
 User=root
 WorkingDirectory=/app
-Environment=CART_HOST=cartp.poornadevops.online
+Environment=CART_HOST=cartp.devopsproject.online
 Environment=CART_PORT=8080
-Environment=USER_HOST=userp.poornadevops.online
+Environment=USER_HOST=userp.devopsproject.online
 Environment=USER_PORT=8080
-Environment=AMQP_HOST=rabbitmqp.poornadevops.online
+Environment=AMQP_HOST=rabbitmqp.devopsproject.online
 Environment=AMQP_USER=roboshop
 Environment=AMQP_PASS=rabbitmq_app_password
 
